@@ -2,7 +2,6 @@ package org.example.controller;
 
 import org.exemple.data.BookDto;
 import org.exemple.ports.api.BookServicePort;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,9 +9,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/book")
 public class BookController {
+    private final BookServicePort bookServicePort;
 
-    @Autowired
-    private BookServicePort bookServicePort;
+    public BookController(BookServicePort bookServicePort) {
+        this.bookServicePort = bookServicePort;
+    }
 
     @PostMapping("/add")
     public BookDto addBook(@RequestBody BookDto bookDto) {

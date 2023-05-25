@@ -50,10 +50,8 @@ public class BookJpaAdapter implements BookPersistencePort {
 
         Optional<Book> book = bookRepository.findById(bookId);
 
-        if (book.isPresent()) {
-            return BookMapper.INSTANCE.bookToBookDto(book.get());
-        }
-
-        return null;
+        return book
+                .map(BookMapper.INSTANCE::bookToBookDto)
+                .orElse(null);
     }
 }
